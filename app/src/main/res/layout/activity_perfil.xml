@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity_perfil">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/foto_perfil"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="56dp"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/CircleImagenView"
+        app:strokeColor="@color/green"
+        app:strokeWidth="5dp" />
+
+    <TextView
+        android:id="@+id/text_Nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Nombre:"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/foto_perfil"
+        tools:ignore="HardcodedText" />
+
+    <EditText
+        android:id="@+id/edit_Nombre"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        android:autofillHints=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_Nombre"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/text_Correo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Correo electronico:"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_Nombre" />
+
+    <EditText
+        android:id="@+id/edit_Correo"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_Correo"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/btn_Foto"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Tomar foto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_Correo"
+        android:backgroundTint="@color/green"/>
+
+    <Button
+        android:id="@+id/btn_Guardar"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="Guardar cambios"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_Foto"
+        android:backgroundTint="@color/green"/>
+
+    <Button
+        android:id="@+id/btnEnviarCorreo"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="Enviar correo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_Guardar"
+        android:backgroundTint="@color/green"/>
+
+    <Button
+        android:id="@+id/btnVolver"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="Ir a Dashboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnEnviarCorreo"
+        android:backgroundTint="@color/green"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
