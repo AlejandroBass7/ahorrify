@@ -1,24 +1,43 @@
 package com.example.ahorrify;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class ingress extends AppCompatActivity {
-
+    EditText etCategorias, etCantidad;
+    adminSqliteOpenHelper admin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_ingresos);
+        etCategorias = findViewById(R.id.txtCategorias);
+        etCantidad = findViewById(R.id.txtCantidad);
+        admin = new adminSqliteOpenHelper(this, "bdAhorrify", null, 1);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -40,5 +59,55 @@ public class ingress extends AppCompatActivity {
                 startActivity(perfil);
             }
         });
+    }
+    public void agregar(View v){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        Date hoy = new Date();
+        String fechaActual = sdf.format(hoy);
+        SQLiteDatabase bd = admin.getWritableDatabase();
+        ContentValues registro = new ContentValues();
+        registro.put("categoria", etCategorias.getText().toString());
+        registro.put("monto", etCantidad.getText().toString());
+        registro.put("fecha", fechaActual);
+        bd.insert("ingresos", null, registro);
+        etCategorias.setText("");
+        etCantidad.setText("");
+        bd.close();
+        Toast.makeText(this, "El ingreso se ha guardado correctamente", Toast.LENGTH_LONG).show();
+    }
+    public void consultarServicio(View v) {
+        String categoriaBusqueda = etCategorias.getText().toString();
+        SQLiteDatabase bd = admin.getReadableDatabase(); // Usar Readable para consultas
+
+        // Lista para guardar los resultados
+        List<Ingreso> resultados = new ArrayList<>();
+
+        // Consulta (si el campo está vacío, trae todos)
+        String query = categoriaBusqueda.isEmpty() ?
+                "SELECT categoria, monto FROM ingresos" :
+                "SELECT categoria, monto FROM ingresos WHERE categoria = '" + categoriaBusqueda + "'";
+
+        Cursor fila = bd.rawQuery(query, null);
+
+        if (fila.moveToFirst()) {
+            do {
+                // Agregamos cada registro a la lista
+                resultados.add(new Ingreso(
+                        fila.getString(0), // categoria
+                        fila.getDouble(1)  // monto
+                ));
+            } while (fila.moveToNext());
+
+            // Configuramos el RecyclerView con los resultados
+            RecyclerView rv = findViewById(R.id.recyclerView);
+            rv.setLayoutManager(new LinearLayoutManager(this));
+            IngresoAdapter adapter = new IngresoAdapter(resultados);
+            rv.setAdapter(adapter);
+
+            Toast.makeText(this, "Se encontraron " + resultados.size() + " registros", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "No se encontraron registros", Toast.LENGTH_SHORT).show();
+        }
+        bd.close();
     }
 }

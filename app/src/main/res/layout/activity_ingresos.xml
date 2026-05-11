@@ -52,40 +52,55 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
-    <Spinner
-        android:id="@+id/spinnerCategorias"
+    <EditText
+        android:id="@+id/txtCategorias"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"
+        android:hint="Ej: servicios"
+        app:layout_constraintEnd_toStartOf="@+id/btnBuscar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvCategorias" />
 
-    <TextView
-        android:id="@+id/tvCantidad"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/btnBuscar"
+        style="@style/Widget.Material3.Button.Icon"
+        android:layout_width="48dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="20dp"
-        android:text="Cantidad"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerCategorias" />
-
-    <EditText
-        android:id="@+id/etCantidad"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:hint="Ej: 500.000"
-        android:inputType="numberDecimal"
+        android:backgroundTint="@color/green"
+        app:icon="@drawable/ic_search"
+        app:iconGravity=""
+        app:iconPadding="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/txtCategorias"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCantidad" />
+        app:layout_constraintTop_toTopOf="@+id/txtCategorias" />
 
-    <!-- Botones CRUD -->
+
+        <TextView
+            android:id="@+id/tvCantidad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="20dp"
+            android:text="Cantidad"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtCategorias" />
+
+        <EditText
+            android:id="@+id/txtCantidad"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:hint="Ej: 500.000"
+            android:inputType="numberDecimal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCantidad" />
+
     <GridLayout
         android:id="@+id/layoutCRUD"
         android:layout_width="0dp"
@@ -96,7 +111,7 @@
         android:columnCount="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etCantidad">
+        app:layout_constraintTop_toBottomOf="@+id/txtCantidad">
 
         <Button
             android:id="@+id/btnAgregar"
