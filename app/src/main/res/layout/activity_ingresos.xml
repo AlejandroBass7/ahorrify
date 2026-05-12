@@ -66,11 +66,12 @@
     <Button
         android:id="@+id/btnBuscar"
         style="@style/Widget.Material3.Button.Icon"
-        android:layout_width="48dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
+        android:layout_width="85dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="10dp"
         android:backgroundTint="@color/green"
-        app:icon="@drawable/ic_search"
+        android:onClick="consultarCategoria"
+        android:text="Buscar"
         app:iconGravity=""
         app:iconPadding="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/txtCategorias"
@@ -115,6 +116,7 @@
 
         <Button
             android:id="@+id/btnAgregar"
+            android:onClick="agregar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
@@ -124,6 +126,7 @@
 
         <Button
             android:id="@+id/btnActualizar"
+            android:onClick="ModificarIngreso"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
@@ -133,6 +136,7 @@
 
         <Button
             android:id="@+id/btnEliminar"
+            android:onClick="BorrarIngreso"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"

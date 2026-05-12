@@ -18,7 +18,5 @@ public class adminSqliteOpenHelper extends SQLiteOpenHelper {
         db.execSQL("create table metas (id integer primary key autoincrement, nombre text, monto_objetivo real, monto_actual real)");
     }
     @Override
-    public void onUpgrade(SQLiteDatabase db, int i, int i1){
-
-    }
+    public void onUpgrade(SQLiteDatabase db, int i, int i1){}
 }

@@ -22,13 +22,4 @@
         android:text="$ 0.00"
         android:textStyle="bold"
         android:textSize="16sp" />
-
-    <ImageButton
-        android:id="@+id/btnEliminarItem"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@drawable/delete_svgrepo_com"
-        android:contentDescription="Eliminar"
-        android:tint="@color/green" />
 </LinearLayout>

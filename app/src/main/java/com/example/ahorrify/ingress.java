@@ -30,6 +30,11 @@ import java.util.Locale;
 public class ingress extends AppCompatActivity {
     EditText etCategorias, etCantidad;
     adminSqliteOpenHelper admin;
+
+    RecyclerView rv;
+    IngresoAdapter adapter;
+    List<Ingreso> resultados = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +43,14 @@ public class ingress extends AppCompatActivity {
         etCategorias = findViewById(R.id.txtCategorias);
         etCantidad = findViewById(R.id.txtCantidad);
         admin = new adminSqliteOpenHelper(this, "bdAhorrify", null, 1);
+
+        // Inicializar RecyclerView una sola vez
+        rv = findViewById(R.id.recyclerView);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+
+        // Cargar los datos automáticamente al abrir
+        consultarCategoria(null);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -72,13 +85,14 @@ public class ingress extends AppCompatActivity {
         bd.insert("ingresos", null, registro);
         etCategorias.setText("");
         etCantidad.setText("");
-        bd.close();
+        consultarCategoria(null);
         Toast.makeText(this, "El ingreso se ha guardado correctamente", Toast.LENGTH_LONG).show();
+        bd.close();
     }
-    public void consultarServicio(View v) {
+    public void consultarCategoria(View v) {
         String categoriaBusqueda = etCategorias.getText().toString();
         SQLiteDatabase bd = admin.getReadableDatabase(); // Usar Readable para consultas
-
+        resultados.clear();
         // Lista para guardar los resultados
         List<Ingreso> resultados = new ArrayList<>();
 
@@ -88,7 +102,8 @@ public class ingress extends AppCompatActivity {
                 "SELECT categoria, monto FROM ingresos WHERE categoria = '" + categoriaBusqueda + "'";
 
         Cursor fila = bd.rawQuery(query, null);
-
+        adapter = new IngresoAdapter(resultados);
+        rv.setAdapter(adapter);
         if (fila.moveToFirst()) {
             do {
                 // Agregamos cada registro a la lista
@@ -108,6 +123,36 @@ public class ingress extends AppCompatActivity {
         } else {
             Toast.makeText(this, "No se encontraron registros", Toast.LENGTH_SHORT).show();
         }
+        bd.close();
+    }
+    public void BorrarIngreso(View v){
+        SQLiteDatabase bd = admin.getWritableDatabase();
+        String Categoria = etCategorias.getText().toString();
+        int cant = bd.delete("ingresos", "categoria='"+Categoria+"'",null);
+        if (cant==1){
+            etCategorias.setText("");
+            etCantidad.setText("");
+            Toast.makeText(this, "La categoria fue eliminada", Toast.LENGTH_LONG).show();
+        }else {
+            Toast.makeText(this, "La categoria no existe", Toast.LENGTH_LONG).show();
+        }
+        consultarCategoria(null);
+        bd.close();
+    }
+    public void ModificarIngreso(View v){
+        SQLiteDatabase bd = admin.getWritableDatabase();
+        String Categoria = etCategorias.getText().toString();
+        ContentValues registro = new ContentValues();
+        registro.put("monto", etCantidad.getText().toString());
+        int cant = bd.update("ingresos", registro,"categoria='"+Categoria+"'",null);
+        if (cant==1){
+            etCategorias.setText("");
+            etCantidad.setText("");
+            Toast.makeText(this, "Se actualizo el ingreso.", Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(this, "No se actualizo el ingreso", Toast.LENGTH_LONG).show();
+        }
+        consultarCategoria(null);
         bd.close();
     }
 }
