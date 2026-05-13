@@ -6,131 +6,165 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Gastos">
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="287dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="56dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_launcher" />
 
+    <!-- Menú Superior -->
     <RelativeLayout
         android:id="@+id/main_menu"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="368dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:padding="10dp"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
             android:id="@+id/imgprofile"
             android:layout_width="37dp"
             android:layout_height="match_parent"
-            android:src="@drawable/profile_round_1342_svgrepo_com"/>
+            android:src="@drawable/profile_round_1342_svgrepo_com" />
+
         <ImageView
             android:layout_width="55dp"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
-            android:layout_gravity="bottom"
             android:src="@drawable/outline_circle_notifications_24" />
     </RelativeLayout>
 
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_menu"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <!-- Formulario de Gastos -->
     <TextView
         android:id="@+id/tvCategorias"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Categoria"
-        app:layout_constraintEnd_toEndOf="@+id/spinnerCategorias"
-        app:layout_constraintStart_toStartOf="@+id/spinnerCategorias"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5"
-        tools:ignore="MissingConstraints" />
+        android:layout_marginStart="20dp"
+        android:text="Categoría de Gasto"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
-    <Spinner
-        android:id="@+id/spinnerCategorias"
+    <EditText
+        android:id="@+id/txtCategorias"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"
+        android:hint="Ej: Alimentación"
+        app:layout_constraintEnd_toStartOf="@+id/btnBuscar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvCategorias"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCategorias" />
+
+    <Button
+        android:id="@+id/btnBuscar"
+        style="@style/Widget.Material3.Button.Icon"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/green"
+        app:icon="@drawable/ic_search"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        android:onClick="ConsultarGastos"
+        app:layout_constraintBottom_toBottomOf="@+id/txtCategorias"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtCategorias" />
 
     <TextView
         android:id="@+id/tvCantidad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:layout_marginStart="20dp"
         android:text="Cantidad"
-        app:layout_constraintStart_toStartOf="@+id/tvCategorias"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerCategorias"
-        tools:ignore="MissingConstraints" />
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtCategorias" />
 
-    <Spinner
-        android:id="@+id/spinnerCantidad"
+    <EditText
+        android:id="@+id/txtCantidad"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
         android:layout_marginEnd="20dp"
+        android:hint="Ej: 20.000"
+        android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvCantidad"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCantidad" />
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <GridLayout
+        android:id="@+id/layoutCRUD"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:columnCount="2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinnerCantidad"
-        app:layout_constraintVertical_bias="0.117"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toBottomOf="@+id/txtCantidad">
 
         <Button
-            android:layout_width="150dp"
+            android:id="@+id/btnAgregar"
+            android:onClick="AgregarGasto"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
             android:backgroundTint="@color/green"
-            android:text="Agregar"
-            tools:ignore="MissingConstraints" />
+            android:text="Agregar" />
+
+        <Button
+            android:id="@+id/btnActualizar"
+            android:onClick="ModificarGasto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:backgroundTint="@color/green"
+            android:text="Modificar" />
+
+        <Button
+            android:id="@+id/btnEliminar"
+            android:onClick="BorrarGasto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:backgroundTint="@color/green"
+            android:text="Eliminar" />
 
         <Button
             android:id="@+id/btnVolver"
-            android:layout_width="150dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
             android:backgroundTint="@color/green"
-            android:text="Volver"
-            tools:ignore="MissingConstraints" />
-    </RelativeLayout>
+            android:text="Volver" />
+    </GridLayout>
 
+    <!-- Lista de Gastos al final -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="370dp"
-        android:layout_height="242dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="35dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_menu"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutCRUD" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

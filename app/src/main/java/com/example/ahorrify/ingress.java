@@ -24,9 +24,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-
 public class ingress extends AppCompatActivity {
     EditText etCategorias, etCantidad;
     adminSqliteOpenHelper admin;
